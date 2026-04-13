@@ -1,0 +1,98 @@
+{
+  "entities": {
+    "users": {
+      "title": "User Profile",
+      "description": "User profile with role-based access",
+      "type": "object",
+      "properties": {
+        "email": { "type": "string" },
+        "role": { "type": "string", "enum": ["admin", "manager", "user"] },
+        "displayName": { "type": "string" }
+      },
+      "required": ["email", "role"]
+    },
+    "posts": {
+      "title": "Blog Post",
+      "description": "A blog post or update from Mufti Masud",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string", "description": "Post title" },
+        "content": { "type": "string", "description": "Post content in markdown or HTML" },
+        "imageUrl": { "type": "string", "description": "Featured image URL" },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Creation timestamp" },
+        "updatedAt": { "type": "string", "format": "date-time", "description": "Last update timestamp" },
+        "authorId": { "type": "string", "description": "UID of the author" }
+      },
+      "required": ["title", "content", "createdAt", "authorId"]
+    },
+    "books": {
+      "title": "Book",
+      "description": "A book written by Mufti Masud",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string", "description": "Book title" },
+        "description": { "type": "string", "description": "Book description" },
+        "coverUrl": { "type": "string", "description": "Book cover image URL" },
+        "purchaseUrl": { "type": "string", "description": "Link to buy the book" },
+        "downloadUrl": { "type": "string", "description": "Link to download (if free)" },
+        "order": { "type": "number", "description": "Display order" }
+      },
+      "required": ["title", "description", "coverUrl"]
+    },
+    "messages": {
+      "title": "Contact Message",
+      "description": "Message from the contact form",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string", "description": "Sender name" },
+        "email": { "type": "string", "description": "Sender email" },
+        "message": { "type": "string", "description": "Message content" },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Submission timestamp" }
+      },
+      "required": ["name", "email", "message", "createdAt"]
+    },
+    "settings": {
+      "title": "App Settings",
+      "description": "Global application settings",
+      "type": "object",
+      "properties": {
+        "recaptchaEnabled": { "type": "boolean", "description": "Whether reCAPTCHA is active" },
+        "homeHeadline": { "type": "string", "description": "Hero section headline" },
+        "homeIntro": { "type": "string", "description": "Hero section intro text" },
+        "siteTitle": { "type": "string", "description": "SEO Site Title" },
+        "siteDescription": { "type": "string", "description": "SEO Site Description" },
+        "keywords": { "type": "string", "description": "SEO Keywords" },
+        "journeyImageThen": { "type": "string", "description": "Image URL for 'Then' state" },
+        "journeyImageNow": { "type": "string", "description": "Image URL for 'Now' state" },
+        "journeyLabelThen": { "type": "string", "description": "Label for 'Then' state (e.g. Mufti Maulana)" },
+        "journeyLabelNow": { "type": "string", "description": "Label for 'Now' state (e.g. Secular Thinker)" },
+        "journeyIntro": { "type": "string", "description": "Intro text for the Transformation Journey section" },
+        "recaptchaSiteKey": { "type": "string", "description": "Google reCAPTCHA v2 Site Key" },
+        "recaptchaSecretKey": { "type": "string", "description": "Google reCAPTCHA v2 Secret Key (Server-side)" },
+        "recaptchaEnabled": { "type": "boolean", "description": "Whether reCAPTCHA is enabled" }
+      }
+    },
+    "pages": {
+      "title": "Page",
+      "description": "A dynamic page content",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string" },
+        "slug": { "type": "string" },
+        "content": { "type": "string" },
+        "imageUrl": { "type": "string", "description": "Featured image URL for the page" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["title", "slug", "content"]
+    }
+  },
+  "firestore": {
+    "/posts/{postId}": { "schema": "posts", "description": "Blog posts collection" },
+    "/books/{bookId}": { "schema": "books", "description": "Books collection" },
+    "/messages/{messageId}": { "schema": "messages", "description": "Contact messages collection" },
+    "/settings/global": { "schema": "settings", "description": "Global settings document" },
+    "/settings/homepage": { "schema": "settings", "description": "Homepage settings" },
+    "/users/{userId}": { "schema": "users", "description": "User profiles and roles" },
+    "/pages/{pageId}": { "schema": "pages", "description": "Dynamic pages content" }
+  }
+}
